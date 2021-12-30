@@ -1,6 +1,7 @@
 :root {
   --standart-seat: #03a9f4;
   --vip-seat: #8bc34a;
+  --booked-seat: #ccc;
 }
 
 /* FONTS */
@@ -283,7 +284,7 @@ img {
 
 /* :disabled holati */
 .seat__checkbox:disabled + .seat__control {
-  background-color: #ccc;
+  background-color: var(--booked-seat);
 }
 
 .seat__checkbox:disabled + .seat__control {
@@ -298,4 +299,64 @@ img {
 .seat__checkbox:disabled + .seat__control .seat__number {
   opacity: 1;
   color: #666;
+}
+
+/* Seats price */
+.ticket-form__footer{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.seats-prices {
+  display: flex;
+  align-items: center;
+  padding: 0;
+  margin: 0;
+  list-style-type: none;
+  color: #ddd;
+}
+
+.seat-price {
+  margin-right: 30px;
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+}
+
+.seat-price::before{
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  margin-right: 10px;
+  background-color: var(--standart-seat);
+  content: "";
+}
+
+.seat-price--vip::before{
+  background-color: var(--vip-seat);
+}
+
+.seat-price--booked::before{
+  background-color: var(--booked-seat);
+}
+
+.ticket-form__submit{
+  padding: 10px 20px;
+  border-radius: 5px;
+  border: none;
+  background-color: var(--standart-seat);
+  color: #fff;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.ticket-form__submit:hover{
+  opacity: 0.8;
+}
+
+.ticket-form__submit:active{
+  opacity: 0.6;
 }

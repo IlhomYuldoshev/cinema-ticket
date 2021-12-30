@@ -1,0 +1,301 @@
+:root {
+  --standart-seat: #03a9f4;
+  --vip-seat: #8bc34a;
+}
+
+/* FONTS */
+@font-face {
+  font-family: "Roboto";
+  font-style: normal;
+  font-weight: 400;
+  src: local(""), url("../fonts/roboto-v29-latin-regular.woff2") format("woff2"),
+    url("../fonts/roboto-v29-latin-regular.woff") format("woff");
+}
+@font-face {
+  font-family: "Roboto";
+  font-style: normal;
+  font-weight: 700;
+  src: local(""), url("../fonts/roboto-v29-latin-700.woff2") format("woff2"),
+    url("../fonts/roboto-v29-latin-700.woff") format("woff");
+}
+
+/* GLOBAL STYLES */
+html {
+  box-sizing: border-box;
+}
+
+*,
+*::after,
+*::before {
+  box-sizing: inherit;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: "Roboto", "Arial", sans-serif;
+  font-size: 16px;
+  line-height: 1.5;
+  background-color: rgb(31, 48, 75);
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+.visually-hidden {
+  position: absolute;
+
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  border: 0;
+  padding: 0;
+
+  clip: rect(0 0 0 0);
+  overflow: hidden;
+}
+
+/* CONTAINER */
+.container {
+  max-width: 700px;
+  padding-left: 20px;
+  padding-right: 20px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 50px;
+}
+
+.divider {
+  border: none;
+  height: 2px;
+  background-color: #777;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.ticket-form {
+  background-color: #333;
+  color: #fff;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 10px 15px rgba(0, 0, 0, 0.5);
+}
+
+.movie-info {
+  position: relative;
+  padding-right: 60px;
+}
+
+.movie-info__wrapper {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.movie-info__title {
+  margin: 0;
+  margin-right: 20px;
+  line-height: 1.2;
+}
+
+.movie-info__badge {
+  display: inline-block;
+  padding: 5px;
+  background-color: #666;
+  border-radius: 5px;
+  margin-right: 5px;
+}
+
+.movie-info__cinema-name {
+  margin-top: 5px;
+}
+
+.ticket-form__close {
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  border: 2px solid #fff;
+  background-color: transparent;
+  background-image: url(../images/close-icon.svg);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 70%;
+  cursor: pointer;
+  opacity: 0.5;
+  transition: opacity 0.3s ease;
+}
+
+.ticket-form__close:hover,
+.ticket-form__close:focus {
+  opacity: 1;
+}
+
+.cinema {
+  padding-left: 50px;
+  padding-right: 50px;
+}
+
+.cinema__screen {
+  display: flex;
+  justify-content: center;
+  height: 120px;
+}
+
+/* CHECKBOXES */
+.cinema__poster {
+  transform-origin: center top;
+  transform-style: preserve-3d;
+  transform: perspective(2000px) rotateX(-65deg);
+  height: 240px;
+  border-radius: 5px;
+  box-shadow: 0 50px 40px -30px rgba(255, 255, 255, 0.2);
+}
+
+.cinema__seats-list {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  counter-increment: row;
+}
+
+.cinema__seats-list:not(:last-child) {
+  margin-bottom: 30px;
+}
+
+.cinema__seats-list::before,
+.cinema__seats-list::after {
+  content: counter(row);
+}
+
+.cinema__seats-list::before,
+.cinema__seats-list::after {
+  font-size: 14px;
+  color: #fff;
+}
+
+.cinema__seats {
+  margin-bottom: -30px;
+  transform-origin: 50% 0;
+  transform: perspective(2000px) rotateX(45deg);
+}
+
+.cinema__seat {
+  width: 25px;
+  height: 25px;
+}
+
+.seat {
+  display: block;
+}
+
+.seat__checkbox {
+}
+
+.seat__control {
+  position: relative;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 14px;
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  background-color: var(--standart-seat);
+  cursor: pointer;
+}
+
+.seat__vip .seat__control {
+  background-color: var(--vip-seat);
+}
+
+.seat__control::before {
+  position: absolute;
+  top: -5px;
+  right: -5px;
+  left: -5px;
+  bottom: -5px;
+  border: 1px dotted var(--standart-seat);
+  z-index: 1;
+  border-radius: 50%;
+  content: "";
+  transform: scale(0);
+  opacity: 0;
+  transition: opacity 0.3s ease, transform 0.3s ease, border 0.3s ease;
+}
+
+.seat__vip .seat__control::before {
+  border: 1px dotted var(--vip-seat);
+}
+
+.seat__number {
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+/* :focus holati */
+.seat__checkbox:focus + .seat__control::before {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.seat__checkbox:focus + .seat__control .seat__number {
+  opacity: 1;
+}
+
+/* :hover holati */
+.seat:hover .seat__control::before {
+  transform: scale(1);
+  opacity: 1;
+  border-style: solid;
+}
+
+.seat:hover .seat__number {
+  opacity: 1;
+}
+
+/* :active holati */
+.seat:active .seat__checkbox:not(:disabled) + .seat__control {
+  opacity: 0.5;
+}
+
+/* :checked holati */
+.seat__checkbox:checked + .seat__control::before {
+  border: 3px solid var(--standart-seat);
+  transform: scale(1);
+  opacity: 1;
+}
+
+.seat__vip .seat__checkbox:checked + .seat__control::before {
+  border: 3px solid var(--vip-seat);
+}
+
+.seat__checkbox:checked + .seat__control .seat__number {
+  opacity: 1;
+}
+
+/* :disabled holati */
+.seat__checkbox:disabled + .seat__control {
+  background-color: #ccc;
+}
+
+.seat__checkbox:disabled + .seat__control {
+  cursor: not-allowed;
+}
+
+.seat__checkbox:disabled + .seat__control::before {
+  opacity: 0;
+  transform: scale(0);
+}
+
+.seat__checkbox:disabled + .seat__control .seat__number {
+  opacity: 1;
+  color: #666;
+}
